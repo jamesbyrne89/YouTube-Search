@@ -1,3 +1,5 @@
+@import '_variables.scss';
+
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -52,7 +54,7 @@ table {
 
 
 html {
-	background: linear-gradient(to right, #F9002A, #AD0123);
+	background: linear-gradient(to right, $brightRed, $darkerRed);
 	font-family: 'helvetica', arial, sans-serif;
 
 }
@@ -74,12 +76,12 @@ Header
 
 
 .search-header {
-	background: #1E192A;
+	background: $darkNavy;
 	padding: 3em;
 	width: 100%;
 	display: flex;
 	justify-content: space-around;
-	margin: 0.5em 0;
+	margin: 2.5em 0;
 -webkit-box-shadow: 0px 0px 25px 0px rgba(30,25,42,1);
 -moz-box-shadow: 0px 0px 25px 0px rgba(30,25,42,1);
 box-shadow: 0px 0px 25px 0px rgba(30,25,42,1);
@@ -113,8 +115,10 @@ Main body
 	
 }
 .main-body {
-	background: #1E192A;
-	min-height: 80vh;
+	background: $darkNavy;
+	min-height: 500px;
+	padding: 3em;
+	color: #fff;
 -webkit-box-shadow: 0px 0px 25px 0px rgba(30,25,42,1);
 -moz-box-shadow: 0px 0px 25px 0px rgba(30,25,42,1);
 box-shadow: 0px 0px 25px 0px rgba(30,25,42,1);
