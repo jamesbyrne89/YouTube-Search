@@ -1,61 +1,60 @@
-
-
 const apiKey = 'AIzaSyCvxKvcGQjAot9MZ0lECRZMmiCAQzXZtw8';
-
-const apiUrl = 'https://www.googleapis.com/youtube/v3/search&alt=json';
 
 const results = [];
 
-// Contains info about each search result
-
-const eachVideoDataArr = [];
-
+const resultsList = document.querySelector('.results');
+const searchInput = document.querySelector('.search-box');
 // Each dataset contained in array
 const vidIds = [];
 const vidTitles = [];
 const vidDescs = [];
 const channelNames = [];
+// const resultsArray = [];
 
-$.getJSON(`https://www.googleapis.com/youtube/v3/search?&key=${apiKey}&part=snippet&alt=json&callback=?`, {
-	part: 'snippet, id',
-	q: 'javascript',
-	type: 'video'
+
+function getJSON(){
+	$.getJSON(`https://www.googleapis.com/youtube/v3/search?&key=${apiKey}&part=snippet&alt=json&callback=?`, {
+	part: 'snippet, statistics',
+	q: `${this.value}`,
+	type: 'video',
+	maxResults: 20
 
 },
-
 (data) => {
-
 results.push(...data.items);
-
-
-const searchBox = document.querySelectorAll('.search-box');
-
-
-function getVideoData(){
-data;
-for (let i = 0; i < data.items.length ; i++) {
-	eachVideoDataArr.push(results[i].snippet);
-	vidIds.push(results[i].id.videoId);
-	vidTitles.push(results[i].snippet.title);
-	vidDescs.push(results[i].snippet.description);
-	channelNames.push(results[i].snippet.channelTitle);
-}
-
-}
-
-getVideoData();
+const nextPageToken = data.nextPageToken;
+const prevPageToken = data.prevPageToken;
 console.log(results);
-console.log(vidIds);
-console.log(vidTitles);
-console.log(vidDescs);
-console.log(channelNames);
-});
+getResults(data);
 
-function findMatches(searchTerm, results){
-//	return results.filter(title);
-//	console.log(var1);
-		// Figure out if city or state matches search term
-		//const regex = new RegExp(searchTerm, 'gi'); 
-		//return place.city.match(regex) || place.state.match(regex);
+});
 }
 
+
+
+
+function getResults(){
+	for (let i=0; i < results.length; i++){
+		let channelName = results[i].snippet.channelTitle;
+		let vidTitle = results[i].snippet.title;
+		let vidDesc = results[i].snippet.description;
+		let vidThumb = results[i].snippet.thumbnails.medium.url;
+		console.log(vidTitle);
+	const html = resultsList.appendChild(document.createElement('li'));
+		html.innerHTML=( `<img class="thumbnail" src="${vidThumb}">
+			<div class="results-vid-info">
+			<div class="video-title">${vidTitle}</div>
+			<div class="channel-title">${channelName}</div>
+			<div class="description">${vidDesc}</div>
+			</div>`);
+	}
+}
+
+		//const videoTitle = video.snippet.title;
+		//const channelTitle = video.snippet.channelTitle;
+
+
+
+
+
+searchInput.addEventListener('change', getJSON);
